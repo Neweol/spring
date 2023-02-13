@@ -32,6 +32,7 @@
 	  	</div>
 	</section>
 	 
+	 
    	<section class="content">
    		<div class="card">
    			<div class="card-header with-border">
@@ -40,7 +41,6 @@
    					 <div class="input-group row">
    					 	<!-- search bar -->
    					 	<!-- sort num -->
-						<form action="list">
 					  	<select class="form-control col-md-3" name="perPageNum" id="perPageNum" onchange="list_go(1);">					  		  		
 					  		<option value="10" ${cri.perPageNum eq 10 ? 'selected' : '' } >정렬개수</option>
 					  		<option value="2" ${cri.perPageNum eq 2 ? 'selected' : '' }>2개씩</option>
@@ -61,12 +61,11 @@
    					 	<input  class="form-control" type="text" name="keyword" 
    					 			placeholder="검색어를 입력하세요." value="${cri.keyword }"/>
 						<span class="input-group-append">
-							<button class="btn btn-primary" type="submit" 
-									id="searchBtn" data-card-widget="search">
-								검색
+							<button class="btn btn-primary" type="button" 
+									id="searchBtn" data-card-widget="search" onclick="list_go(1);">
+								<i class="fa fa-fw fa-search"></i>
 							</button>
 						</span>
-						</form>
 					<!-- end : search bar -->		
    					 </div>
    				</div>   			
@@ -114,6 +113,7 @@
     		<div class="card-footer">
     			<!-- pagination -->
     			<div style="display:${!empty memberList ? 'visible':'none' };">
+	    			<%@ include file="/WEB-INF/module/pagination.jsp" %>
 	    		</div>
     		</div>
 	     </div>
