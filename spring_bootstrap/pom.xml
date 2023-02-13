@@ -25,6 +25,7 @@
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<opensymphony.sitemesh-version>2.4.2</opensymphony.sitemesh-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -75,7 +76,12 @@
 			<artifactId>mybatis</artifactId>
 			<version>${org.mybatis-version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/opensymphony/sitemesh -->
+		<dependency>
+		    <groupId>opensymphony</groupId>
+		    <artifactId>sitemesh</artifactId>
+		    <version>${opensymphony.sitemesh-version}</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
