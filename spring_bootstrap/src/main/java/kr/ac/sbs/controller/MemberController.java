@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jsp.action.utils.MakeFileName;
 import com.jsp.command.SearchCriteria;
 import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
@@ -30,7 +31,7 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@GetMapping("/main")
-	public void main() { }
+	public void main() {}
 	
 	@GetMapping("/list")
 	public void list(SearchCriteria cri, HttpServletRequest request) throws Exception{
@@ -95,6 +96,23 @@ public class MemberController {
 		return entity;
 	}
 	
-	
+	@PostMapping(value="/logincheck", produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> checkID(String id) throws Exception{
+		ResponseEntity<String> entity = null;
+		MemberVO check = null;
+		String result = null;
+		HttpStatus status = null;
+		check = memberService.getMember(id);
+		
+		if(check == null) {//중복아이디 없음
+			result = "아이디 사용 가능";
+			status = HttpStatus.OK;
+		}else {
+			result = "아이디 사용 불가";
+			status = HttpStatus.BAD_REQUEST;
+		}
+		entity = new ResponseEntity<String>(result, status);
+		return entity;
+	}
 	
 }
