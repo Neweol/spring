@@ -1,15 +1,19 @@
 package kr.ac.sbs.controller;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jsp.command.SearchCriteria;
@@ -53,11 +57,42 @@ public class MemberController {
 	@Resource(name="picturePath")
 	private String picturePath;
 	
+	public String savePicture(String oldPicture, MultipartFile multi) throws Exception{
+		String fileName = null;
+		String uploadPath = this.picturePath;
+		if(!(multi==null||multi.isEmpty()||multi.getSize()>1024*1024*1)) {
+			fileName = MakeFileName.toUUIDFileName(multi.getOriginalFilename(),"$$");
+			File storeFile = new File(uploadPath, fileName);
+			
+			storeFile.mkdirs();
+			
+			multi.transferTo(storeFile);
+		}
+		if(oldPicture != null && !oldPicture.isEmpty()) {
+			File oldFile = new File(uploadPath, oldPicture);
+			if(oldFile.exists()) {
+				oldFile.delete();
+			}
+		}
+		return fileName;
+	}
+	
 	@PostMapping(value="/picture", produces="text/plain;charset=utf-8")
-	public String pictureUpload(@RequestParam("pictureFile")MultipartFile multi, String oldPicture) throws Exception{
+	@ResponseBody
+	public ResponseEntity<String> pictureUpload(@RequestParam("pictureFile")MultipartFile multi, String oldPicture) throws Exception{
+		ResponseEntity<String> entity = null;
+		String result = "";
+		HttpStatus status = null;
 		
+		if((result = savePicture(oldPicture, multi))==null) {
+			result = "파일이 없습니다";
+			status = HttpStatus.BAD_REQUEST;
+		}else {
+			status = HttpStatus.OK;
+		}
 		
-		return null;
+		entity = new ResponseEntity<String>(result, status);
+		return entity;
 	}
 	
 	
