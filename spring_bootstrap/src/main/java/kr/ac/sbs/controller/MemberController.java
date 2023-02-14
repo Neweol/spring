@@ -1,11 +1,15 @@
 package kr.ac.sbs.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +25,7 @@ import com.jsp.command.SearchCriteria;
 import com.jsp.dto.MemberVO;
 import com.jsp.service.MemberService;
 
+import kr.ac.sbs.command.MemberModifyCommand;
 import kr.ac.sbs.command.MemberRegistCommand;
 
 @Controller
@@ -111,6 +116,84 @@ public class MemberController {
 		}
 		entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
+	}
+	
+	@RequestMapping(value="/getPicture")
+	public ResponseEntity<byte[]> getPicture(String id) throws Exception{
+		MemberVO member = memberService.getMember(id);
+		
+		String picture = member.getPicture();
+		String imgPath = this.picturePath;
+		
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		try {
+			in = new FileInputStream(new File(imgPath, picture));
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),HttpStatus.OK);
+		} finally {
+			if(in!=null) in.close();
+		}
+		return entity;
+	}
+	
+	@GetMapping("/detail")
+	public void detail(String id, HttpServletRequest request) throws Exception{
+		MemberVO member = memberService.getMember(id);
+		request.setAttribute("member", member);
+	}
+	
+	@GetMapping("/modifyForm")
+	public String modify(String id, HttpServletRequest request) throws Exception{
+		String url = "/member/modify";
+		MemberVO member = memberService.getMember(id);
+		String picture = MakeFileName.parseFileNameFromUUID(member.getPicture(), "\\$\\$");
+		member.setPicture(picture);
+		request.setAttribute("member", member);
+		return url;
+	}
+	
+	@PostMapping(value="/modify",produces="text/plain;charset=utf-8")
+	public String modify(MemberModifyCommand memberReq, HttpSession session, HttpServletRequest request) throws Exception{
+		String url = "/member/modify_success";
+		MemberVO member = memberReq.toMemberVO();
+		String oldPicture = memberService.getMember(member.getId()).getPicture();
+		if(memberReq.getPicture()!=null && memberReq.getPicture().getSize()>0) {
+			String fileName = savePicture(oldPicture, memberReq.getPicture());
+			member.setPicture(fileName);
+		}else {
+			member.setPicture(oldPicture);
+		}
+		
+		memberService.modify(member);
+		
+		MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+		if(loginUser != null && member.getId().equals(loginUser.getId())) {
+			session.setAttribute("loginUser", memberService.getMember(member.getId()));
+		}
+		
+		request.setAttribute("member", member);
+		
+		
+		return url;
+	}
+	
+	@PostMapping("/remove")
+	public void remove(String id,HttpServletRequest request, HttpSession session) throws Exception{
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		MemberVO member = memberService.getMember(id);
+		String savePath = this.picturePath;
+		File imageFile = new File(savePath, member.getPicture());
+		if(imageFile.exists()) {
+			imageFile.delete();
+		}
+		
+		memberService.remove(id);
+		
+		if(loginUser!=null && loginUser.getId().equals(member.getId())) {
+			session.invalidate();
+		}
+		
+		request.setAttribute("member", member);
 	}
 	
 }

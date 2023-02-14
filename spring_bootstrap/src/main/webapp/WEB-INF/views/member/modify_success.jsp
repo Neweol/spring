@@ -3,5 +3,6 @@
 
 <script>
 	alert("${member.name}님의 정보가 수정되었습니다.");
-	location.href='detail.do?id=${member.id}';	
+	location.href='detail.do?id=${member.id}';
+	window.opener.location.reload();
 </script>

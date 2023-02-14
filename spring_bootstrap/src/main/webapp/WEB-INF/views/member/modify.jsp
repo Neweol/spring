@@ -38,7 +38,7 @@
 							<div class="input-group input-group-sm">
 								<label for="inputFile" class=" btn btn-warning btn-sm btn-flat input-group-addon">사진변경</label>
 								<input id="inputFileName" class="form-control" type="text" name="tempPicture" disabled
-									value="${member.picture.split('\\$\\$')[1] }"/>
+									value="${member.picture }"/>
 							</div>						
 						</div>												
 					</div>
