@@ -96,22 +96,20 @@ public class MemberController {
 		return entity;
 	}
 	
-	@PostMapping(value="/logincheck", produces="text/plain;charset=utf-8")
+	@PostMapping("/idCheck")
+	@ResponseBody
 	public ResponseEntity<String> checkID(String id) throws Exception{
 		ResponseEntity<String> entity = null;
 		MemberVO check = null;
 		String result = null;
-		HttpStatus status = null;
 		check = memberService.getMember(id);
 		
 		if(check == null) {//중복아이디 없음
-			result = "아이디 사용 가능";
-			status = HttpStatus.OK;
+			result = "DUPLICATED";			
 		}else {
-			result = "아이디 사용 불가";
-			status = HttpStatus.BAD_REQUEST;
+			result = "";
 		}
-		entity = new ResponseEntity<String>(result, status);
+		entity = new ResponseEntity<String>(result, HttpStatus.OK);
 		return entity;
 	}
 	
