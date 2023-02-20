@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jsp.action.utils.MakeFileName;
 import com.jsp.command.SearchCriteria;
 import com.jsp.dto.AttachVO;
+import com.jsp.dto.PdsVO;
 import com.jsp.service.PdsService;
 
 import kr.ac.sbs.command.PdsRegistCommand;
@@ -92,7 +93,9 @@ public class PdsController {
       }
       
       // DB
-      
+      PdsVO pds = registReq.toPdsVO();
+      pds.setAttachList(attachList);
+      //pdsService
       
       return url;
       
