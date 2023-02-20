@@ -12,7 +12,14 @@
 		<constructor-arg value="${uploadPath.member.picture}" />
 	</bean>
 	
+	<bean id="imgPath" class="java.lang.String">
+		<constructor-arg value="${uploadPath.summernote.img}" />
+	</bean>
 	
+	<!-- file upload -->
+	<bean id="fileUploadPath" class="java.lang.String">
+		<constructor-arg value="${uploadPath.pds}"></constructor-arg>
+	</bean>
 
 	<!-- repository -->
 	<bean id="memberDAO" class="com.jsp.dao.MemberDAOImpl" />
