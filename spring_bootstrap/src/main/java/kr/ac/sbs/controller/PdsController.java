@@ -101,4 +101,46 @@ public class PdsController {
       
    }
    
+   @GetMapping("/detail")
+   public ModelAndView detail(int pno, String from, RedirectAttributes rttr, ModelAndView mnv) throws Exception{
+	   String url = "/pds/detail";
+	   PdsVO pds = null;
+	   if (from != null && from.equals("list")) {
+		   pds = pdsService.read(pno);
+		   url = "redirect:/pds/detail.do";
+		   
+		   rttr.addAttribute("pno",pno);
+		   mnv.setViewName(url);
+		   return mnv;
+	   }
+	   
+	   pds = pdsService.getPds(pno);
+	   
+	   if(pds!=null) {
+		   List<AttachVO> attachList = pds.getAttachList();
+		   if(attachList != null) {
+			   for (AttachVO attach : attachList) {
+				   String fileName = attach.getFileName().split("\\$\\$")[1];
+				   attach.setFileName(fileName);
+			   }
+		   }
+	   }
+	   
+	   mnv.addObject("pds",pds);
+	   mnv.setViewName(url);
+	   
+	   return mnv;
+   }
+   
+   @GetMapping("/modifyForm")
+   public ModelAndView modifyForm(ModelAndView mnv, int pno,RedirectAttributes rttr) throws Exception {
+	   String url = "/pds/modify";
+	   
+	   mnv = detail(pno,"modify", rttr, mnv);
+	   mnv.setViewName(url);
+	   
+	   return mnv;
+	   
+   }
+   
 }
