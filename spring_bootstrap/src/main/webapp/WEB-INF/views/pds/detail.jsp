@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
-    
 
 <title>자료실 상세보기</title>
 
@@ -15,8 +13,6 @@
     			<div class="col-sm-6">
 	      			<h1>자료실</h1>
 	      		</div>	      		
-	    	
-	       		
 	       		<div class="col-sm-6">
 			      <ol class="breadcrumb float-sm-right">
 			        <li class="breadcrumb-item"><a href="list.do"><i class="fa fa-dashboard"></i>자료실</a></li>
@@ -26,8 +22,6 @@
 	     	</div>	     	
       	</div>
     </section>
-
-
   <!-- Main content -->
     <section class="content container-fluid">
 		<div class="row">
@@ -68,7 +62,6 @@
 								<div class="card-header">
 									<h3>첨부파일</h3>
 								</div>
-											
 								<div class="card-footer">
 									<div class="row">
 										<!-- attaches -->
@@ -90,19 +83,15 @@
 								</div>				
 							</div>
 						</div>
-												
 					</div>
 					<div class="card-footer">
-						
 							<button type="button" id="modifyBtn" class="btn btn-warning" onclick="submit_go('modifyForm.do','${pds.pno}');">Modify</button>						
 					    	<button type="button" id="removeBtn" class="btn btn-danger" onclick="submit_go('remove.do','${pds.pno}');">REMOVE</button>
-					   
 					    <button type="button" id="listBtn" class="btn btn-primary" onclick="CloseWindow();">CLOSE </button>
 					</div>									
 				</div><!-- end card -->				
 			</div><!-- end col-md-12 -->
 		</div><!-- end row  -->		
-		
     </section>
 
 
@@ -111,8 +100,20 @@ function submit_go(url,pno){
 	location.href=url+"?pno="+pno;
 }
 </script>    
- 
 
+<c:if test="${from eq 'modify' }" >
+	<script>
+		alert("정상적으로 수정되었습니다.");
+		window.opener.location.reload();
+	</script>
+</c:if>
+<c:if test = "${from eq 'delete' }" >
+	<script>
+		alert("삭제되었습니다.");
+		window.close();
+		window.opener.location.reload();
+	</script>
+</c:if>
 
 
  

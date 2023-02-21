@@ -46,12 +46,10 @@ public class PdsRegistCommand {
 	}
 	
 	public PdsVO toPdsVO() {
-		
 		PdsVO pds = new PdsVO();
 		pds.setContent(this.content);
 		pds.setTitle(this.title);
 		pds.setWriter(this.writer);
-		
 		return pds;
 		
 	}

@@ -99,7 +99,7 @@
   
 <script>
 
-	<c:if test="${not empty member}">
+	<c:if test="${not empty name}">
 		alert("${name}님의 정보가 수정되었습니다.");
 		window.opener.parent.location.reload();
 	</c:if>
