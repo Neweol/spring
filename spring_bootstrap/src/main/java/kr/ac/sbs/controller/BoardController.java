@@ -3,6 +3,7 @@ package kr.ac.sbs.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +47,13 @@ public class BoardController {
 	}
 	
 	@PostMapping("/regist")
-	public String regist(BoardVO board, RedirectAttributes rttr) throws Exception {
+	public String regist(BoardVO board, HttpServletRequest request,RedirectAttributes rttr) throws Exception {
 		String url = "redirect:/board/list.do";
+		
+		String XSStitle = (String)request.getAttribute("XSStitle");
+		if(XSStitle!=null)board.setTitle(XSStitle);
+		
+		
 		boardService.regist(board);
 		
 		rttr.addFlashAttribute("from","regist");
@@ -81,8 +87,10 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) throws Exception{
+	public String modify(BoardVO board,HttpServletRequest request, RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/board/detail.do";
+		String XSStitle = (String)request.getAttribute("XSStitle");
+		if(XSStitle!=null)board.setTitle(XSStitle);
 		boardService.modify(board);
 		rttr.addAttribute("bno",board.getBno());
 		rttr.addFlashAttribute("from","modify");
