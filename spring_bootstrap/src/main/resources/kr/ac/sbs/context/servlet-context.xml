@@ -7,7 +7,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+	
+	<context:property-placeholder file-encoding = "utf-8" location = "classpath:kr/ac/sbs/properties/uploadPath.properties" />
+	<beans:bean id="loginUserLogSavePath" class = "java.lang.String">
+		<beans:constructor-arg value ="${uploadPath.login.user.log}" />
+	</beans:bean>
+	
+	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -37,5 +43,21 @@
 	
 	<!-- Views -->
 	<beans:bean id="downloadFile" class="kr.ac.sbs.views.FileDownloadView" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path ="/**/regist.do" />
+			<mapping path ="/**/modify.do" />
+			<beans:bean class="kr.ac.sbs.interceptor.XSSRequestInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/common/login.do" />
+			<beans:bean class="kr.ac.sbs.interceptor.LoginUserLogInterceptor"
+						p:savePath-ref="loginUserLogSavePath"
+						/>
+		</interceptor>
+	</interceptors>
+	
 	
 </beans:beans>

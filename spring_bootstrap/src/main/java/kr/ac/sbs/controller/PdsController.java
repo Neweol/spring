@@ -91,20 +91,23 @@ public class PdsController {
 	private String fileUploadPath;
 
 	@PostMapping(value = "/regist", produces = "text/plain;charset=UTF-8")
-	public String regist(PdsRegistCommand registReq, RedirectAttributes rttr) throws Exception {
+	public String regist(PdsRegistCommand registReq,HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 
 		String url = "redirect:/pds/list.do";
-
-
+		
+		
 		List<MultipartFile> multiFiles = registReq.getUploadFile();
 		String savePath = this.fileUploadPath;
 		List<AttachVO> attachList = saveFileToAttaches(multiFiles, savePath);
 		
 		// DB
 		PdsVO pds = registReq.toPdsVO();
+		String XSStitle = (String)request.getAttribute("XSStitle");
+		if(XSStitle !=null) 
 		pds.setAttachList(attachList);
 		// pdsService
-
+		
+		pdsService.regist(pds);
 		return url;
 
 	}

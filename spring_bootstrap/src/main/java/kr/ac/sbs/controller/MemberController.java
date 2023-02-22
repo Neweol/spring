@@ -52,10 +52,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("/regist")
-	public String regist(MemberRegistCommand memberReq,RedirectAttributes rttr) throws Exception{
+	public String regist(MemberRegistCommand memberReq,HttpServletRequest request,RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/member/list.do";
 		
 		MemberVO member = memberReq.toMemberVO();
+		String XSSname = (String)request.getAttribute("XSSname");
+		if(XSSname != null) member.setName(XSSname);
 		memberService.regist(member);
 		
 		rttr.addFlashAttribute("member",member);
@@ -159,9 +161,11 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/modify",produces="text/plain;charset=utf-8")
-	public String modify(MemberModifyCommand memberReq, HttpSession session, RedirectAttributes rttr) throws Exception{
+	public String modify(MemberModifyCommand memberReq,HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/member/detail.do";
 		MemberVO member = memberReq.toMemberVO();
+		String XSSname = (String)request.getAttribute("XSSname");
+		if(XSSname != null) member.setName(XSSname);
 		String oldPicture = memberService.getMember(member.getId()).getPicture();
 		if(memberReq.getPicture()!=null && memberReq.getPicture().getSize()>0) {
 			String fileName = savePicture(oldPicture, memberReq.getPicture());
