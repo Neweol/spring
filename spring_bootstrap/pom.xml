@@ -25,6 +25,9 @@
 		<commons.fileupload-version>1.3.1</commons.fileupload-version>
 		<opensymphony.sitemesh-version>2.4.2</opensymphony.sitemesh-version>
 		<jackson.databind-version>2.13.3</jackson.databind-version>
+		<log4jdbc.remix-version>0.2.7</log4jdbc.remix-version>
+		<org.aspectjweaver-version>1.9.6</org.aspectjweaver-version>
+		
 
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -80,9 +83,9 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/opensymphony/sitemesh -->
 		<dependency>
-		    <groupId>opensymphony</groupId>
-		    <artifactId>sitemesh</artifactId>
-		    <version>${opensymphony.sitemesh-version}</version>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${opensymphony.sitemesh-version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
@@ -92,20 +95,32 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>${commons.fileupload-version}</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons.fileupload-version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>${jackson.databind-version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind-version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->
+		<dependency>
+		    <groupId>org.lazyluke</groupId>
+		    <artifactId>log4jdbc-remix</artifactId>
+		    <version>${log4jdbc.remix-version}</version>
 		</dependency>
 				
-
-
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectjweaver-version}</version>
+		</dependency>
+				
 
 		<!-- AspectJ -->
 		<dependency>
@@ -132,10 +147,13 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j -->
 		<dependency>
-			<groupId>log4j</groupId>
+			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>2.15.0</version>
+			<type>pom</type>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>

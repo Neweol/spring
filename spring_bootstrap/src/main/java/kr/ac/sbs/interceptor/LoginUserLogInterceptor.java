@@ -24,7 +24,7 @@ public class LoginUserLogInterceptor extends HandlerInterceptorAdapter{
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
 	}
-
+	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {

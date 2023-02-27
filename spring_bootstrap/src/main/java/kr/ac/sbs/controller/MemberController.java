@@ -51,6 +51,7 @@ public class MemberController {
 		return url;
 	}
 	
+	
 	@PostMapping("/regist")
 	public String regist(MemberRegistCommand memberReq,HttpServletRequest request,RedirectAttributes rttr) throws Exception{
 		String url = "redirect:/member/list.do";
