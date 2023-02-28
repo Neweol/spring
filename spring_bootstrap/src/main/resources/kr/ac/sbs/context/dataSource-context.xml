@@ -23,7 +23,7 @@
 				<property name="sqlPrefix" value="SQL:::" />
 			</bean>
 		</property>
-	</bean>
+	</bean>	
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSourceSpied"

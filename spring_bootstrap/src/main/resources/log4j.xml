@@ -11,12 +11,13 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="kr.ac.sbs.controller">
+	<!-- <logger name="kr.ac.sbs.controller">
 		<level value="info" />
 	</logger>
+	
 	<logger name="kr.ac.sbs.scheduler">
 		<level value="info" />
-	</logger>
+	</logger> -->
 	
 	
 	<!-- SQL문과 해당 SQL을 실행시키는데 수행된 시간 정보(milliseconds)를 포함한다. -->
@@ -79,6 +80,6 @@
 	<!-- <root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
-	</root> -->
-	
+	</root>
+	 -->
 </log4j:configuration>

@@ -17,18 +17,19 @@
 	</repositories>
 	<properties>
 		<java-version>1.8</java-version>
-		<org.springframework-version>4.3.2.RELEASE</org.springframework-version>
-		<oracle.ojdbc6-version>11.2.0.3</oracle.ojdbc6-version>
-		<org.apache.commons-dbcp2-version>2.5.0</org.apache.commons-dbcp2-version>
+		<org.springframework-version>4.3.2.RELEASE</org.springframework-version>   <!-- 래스트풀 -->
+		<oracle.ojdbc6-version>11.2.0.3</oracle.ojdbc6-version> 
+		<org.apache.commons-dbcp2-version>2.5.0</org.apache.commons-dbcp2-version> <!-- 커넥션을 풀형태로 미리배급하고 반납 로드방지 -->
 		<org.mybatis-version>3.5.6</org.mybatis-version>
 		<org.mybatis.spring-version>2.0.6</org.mybatis.spring-version>
-		<commons.fileupload-version>1.3.1</commons.fileupload-version>
 		<opensymphony.sitemesh-version>2.4.2</opensymphony.sitemesh-version>
+		<commons.fileupload-version>1.3.1</commons.fileupload-version>
 		<jackson.databind-version>2.13.3</jackson.databind-version>
-		<log4jdbc.remix-version>0.2.7</log4jdbc.remix-version>
-		<org.aspectjweaver-version>1.9.6</org.aspectjweaver-version>
+		<log4jdbc.remix-version>0.2.7</log4jdbc.remix-version>    <!-- 로그출력 -->
+		<org.aspectjweaver-version>1.9.6</org.aspectjweaver-version>  <!-- 관점지향적 어드바이스 -->
+		<org.apache.log4j-version>2.15.0</org.apache.log4j-version>
 		
-
+		<org.springframework.security-version>3.2.3.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
@@ -81,46 +82,70 @@
 			<artifactId>mybatis</artifactId>
 			<version>${org.mybatis-version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/opensymphony/sitemesh -->
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>sitemesh</artifactId>
-			<version>${opensymphony.sitemesh-version}</version>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>${org.mybatis.spring-version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/opensymphony/sitemesh -->
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${opensymphony.sitemesh-version}</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>${commons.fileupload-version}</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.databind-version}</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->
 		<dependency>
-		    <groupId>org.lazyluke</groupId>
-		    <artifactId>log4jdbc-remix</artifactId>
-		    <version>${log4jdbc.remix-version}</version>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>${log4jdbc.remix-version}</version>
 		</dependency>
-				
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjweaver</artifactId>
-		    <version>${org.aspectjweaver-version}</version>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectjweaver-version}</version>
 		</dependency>
-				
+				<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${org.springframework.security-version}</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.springframework</groupId>
+		    		<artifactId>spring-jdbc</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+		    		<groupId>org.springframework</groupId>
+		    		<artifactId>spring-tx</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>
@@ -147,12 +172,11 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>2.15.0</version>
+			<version>${org.apache.log4j-version}</version>
 			<type>pom</type>
 			<exclusions>
 				<exclusion>
