@@ -59,6 +59,9 @@
 		p:session-ref="sqlSession"	
 	 />
 	
+	<bean id="scheduledMemberDAO" class="kr.ac.sbs.dao.MemberDAOImpl"
+		p:session-ref="sqlSession"
+	/>
 	
 	<!-- Service -->
 	<bean id="menuService" class="com.spring.service.MenuServiceImpl" 
@@ -81,7 +84,11 @@
 	<bean id="replyService" class="com.spring.service.ReplyServiceImpl"
 		p:replyDAO-ref="replyDAOBean"		
 	/>
-
+	
+	<bean id="loginMemberService" class="kr.ac.sbs.service.LoginMemberServiceImpl"
+		p:memberDAO-ref="memberDAOBean"
+		p:childMemberDAO-ref="memberDAOBean"
+		/>
 </beans>
 
 

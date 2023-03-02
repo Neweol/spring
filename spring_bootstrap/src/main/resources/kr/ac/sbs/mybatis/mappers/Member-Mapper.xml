@@ -32,6 +32,14 @@
 		where id is not null
 		<include refid="search" />
 	</select>
+	
+	<select id="selectMemberByPicture" parameterType="str" resultType="member">
+		select
+		*
+		from member
+		where picture=#{picture}
+	</select>
+	
 	<select id="selectMemberById" parameterType="str" resultType="member">
 		select
 		*
