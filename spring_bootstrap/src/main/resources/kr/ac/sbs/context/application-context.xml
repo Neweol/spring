@@ -30,6 +30,8 @@
 	<bean id="pdsDAO" class="com.jsp.dao.PdsDAOImpl" />
 	<bean id="attachDAO" class="com.jsp.dao.AttachDAOImpl" />
 	
+	
+	
 	<bean id="menuDAOBean" class="com.spring.dao.MenuDAOImpl"
 		p:menuDAO-ref="menuDAO"
 		p:session-ref="sqlSession"
@@ -62,6 +64,13 @@
 	<bean id="scheduledMemberDAO" class="kr.ac.sbs.dao.MemberDAOImpl"
 		p:session-ref="sqlSession"
 	/>
+	
+	<bean id="schedulerDAO" class="kr.ac.sbs.dao.SchedulerDAOImpl"
+		p:session-ref="sqlSession"
+		/>
+	<bean id="loginUserLogDAO" class="kr.ac.sbs.dao.LoginUserLogDAOImpl"
+		p:sqlSession-ref="sqlSession"
+		/>
 	
 	<!-- Service -->
 	<bean id="menuService" class="com.spring.service.MenuServiceImpl" 

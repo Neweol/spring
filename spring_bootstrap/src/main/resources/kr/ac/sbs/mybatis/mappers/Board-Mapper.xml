@@ -49,6 +49,12 @@
 		order by regDate desc
 	</select>
 	
+	<select id="selectBoardByImage" resultType="board">
+		select *
+		from board
+		where content like '%'||#{imageFile}||'%'
+	</select>
+	
 	<select id="selectSearchBoardListCount" resultType="int">
 		select
 		count(*)

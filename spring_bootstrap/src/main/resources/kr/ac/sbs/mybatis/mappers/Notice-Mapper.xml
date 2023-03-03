@@ -56,7 +56,11 @@
 		where rnum > #{startRow}		
 		 ]]>
 	</select>
-	
+	<select id="selectNoticeByImage" resultType="notice">
+		select *
+		from notice
+		where content like '%'||#{imageFile}||'%'
+	</select>
 	<select id="selectSearchNoticeListCount" resultType="int">
 		select
 		count(*) 

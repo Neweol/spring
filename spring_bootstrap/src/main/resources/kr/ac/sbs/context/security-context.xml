@@ -6,12 +6,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	<beans:bean id="loginUserLogSavePath" class = "java.lang.String">
+		<beans:constructor-arg value ="${uploadPath.login.user.log}" />
+	</beans:bean>
+	
 	<beans:bean id="customAuthenticationProvider" class="kr.ac.sbs.security.CustomAuthenticationProvider"
 				p:memberService-ref="loginMemberService" 
 				/>
-	<beans:bean id="loginSuccessHandler" class="kr.ac.sbs.security.LoginSuccessHandler" p:defaultTargetUrl="/index.do"
+	<beans:bean id="loginSuccessHandler" class="kr.ac.sbs.security.LoginSuccessHandler" p:defaultTargetUrl="/index.do" p:savePath-ref="loginUserLogSavePath"
 	 />
-	<beans:bean id="loginFailureHandler" class="kr.ac.sbs.security.LoginFailureHandler"  
+	<beans:bean id="loginFailureHandler" class="kr.ac.sbs.security.LoginFailureHandler"
 	/>
 	
 	<beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>

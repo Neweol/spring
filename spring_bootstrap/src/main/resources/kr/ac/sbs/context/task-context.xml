@@ -11,12 +11,48 @@
 				  p:picturePath-ref="picturePath"
 				  p:memberDAO-ref="scheduledMemberDAO" 
 	/>
+	
+	<beans:bean id="summernoteImageRemoveTask"
+				class="kr.ac.sbs.scheduler.RemoveSummernoteImageScheduler"
+				p:schedulerDAO-ref="schedulerDAO"
+				p:filePath-ref="imgPath"
+	/>
+	
+	<beans:bean id="loginUserLogTask"
+				class="kr.ac.sbs.scheduler.LoginUserLogTaskScheduler"
+				p:loginUserLogDAO-ref="loginUserLogDAO"
+				p:savePath-ref="loginUserLogSavePath"
+	/>
+	
+	
+	
 	<scheduled-tasks scheduler="memberPictureRemoveScheduler">
 		<scheduled ref="memberPictureRemoveTask" 
 				   method="removePicture"
 				   cron="*/10 * * * * *"/>
 	</scheduled-tasks>
+	
+	<scheduled-tasks scheduler="summernoteImageScheduler">
+		<scheduled ref="summernoteImageRemoveTask"
+				   method="fileRemove" 
+				   cron="*/10 * * * * *" />
+	</scheduled-tasks>
+	
+	<scheduled-tasks scheduler="LoginUserLogScheduler">
+		<scheduled ref="loginUserLogTask"
+				   method="loginUserLogToDataBase"
+				   cron="*/10 * * * * *"/>
+	</scheduled-tasks>
+	
+	
+	
 	<scheduler id="memberPictureRemoveScheduler"/>
+	<scheduler id="summernoteImageScheduler" />
+	<scheduler id="LoginUserLogScheduler"/>
+	
+	
+	
+	
 	
 </beans:beans>
 
